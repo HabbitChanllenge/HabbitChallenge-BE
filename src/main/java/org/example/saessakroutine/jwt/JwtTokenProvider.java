@@ -26,11 +26,11 @@ public class JwtTokenProvider {
                 .subject(email)
                 .issuedAt(now)
                 .expiration(expiration)
-                .signWith(getSigninKey())
+                .signWith(getSigningKey())
                 .compact();
     }
 
-    private SecretKey getSigninKey() {
+    private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(
                 secret.getBytes(StandardCharsets.UTF_8)
         );

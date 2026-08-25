@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.CONFLICT)
                 .body(Map.of(
                         "type", "userAlreadyExists",
-                        "status", 409
+                        "statusCode", 409
                 ));
     }
 
@@ -31,7 +31,20 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(Map.of(
                         "type", "validationError",
-                        "status", 400
+                        "statusCode", 400
+                ));
+    }
+
+    @ExceptionHandler(PasswordMismatchException.class)
+    public ResponseEntity<Map<String, Object>> handlePasswordMismatch(
+            PasswordMismatchException exception
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of(
+                        "type", "passwordMismatch",
+                        "message", exception.getMessage(),
+                        "statusCode", 401
                 ));
     }
 }

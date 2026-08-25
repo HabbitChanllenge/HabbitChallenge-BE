@@ -1,6 +1,9 @@
 package org.example.saessakroutine.user;
 
+import org.example.saessakroutine.dto.LoginRequest;
+import org.example.saessakroutine.exception.PasswordMismatchException;
 import org.example.saessakroutine.exception.UserAlreadyExistsException;
+import org.example.saessakroutine.jwt.JwtTokenProvider;
 import org.springframework.transaction.annotation.Transactional;
 import org.example.saessakroutine.dto.SignupRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,12 +14,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     public UserService(
-            UserRepository userRepository, PasswordEncoder passwordEncoder
+            UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Transactional
@@ -35,5 +40,16 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
+    }
+
+    public String login(LoginRequest request){
+        User user = userRepository.findByEmail(request.email())
+                .orElseThrow(PasswordMismatchException::new);
+
+        if (!passwordEncoder.matches(request.password(), user.getPassword())) {
+            throw new PasswordMismatchException();
+        }
+
+        return jwtTokenProvider.createAccessToken(user.getEmail());
     }
 }

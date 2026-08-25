@@ -1,6 +1,7 @@
 package org.example.saessakroutine.user;
 
 import jakarta.validation.Valid;
+import org.example.saessakroutine.dto.LoginRequest;
 import org.example.saessakroutine.dto.SignupRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,18 @@ public class UserController {
                 .body(Map.of(
                         "type", "userCreated",
                         "statusCode", 201
+                ));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, Object>> login(@Valid @RequestBody LoginRequest request) {
+        String accessToken = userService.login(request);
+
+        return ResponseEntity
+                .ok(Map.of(
+                        "accessToken", accessToken,
+                        "tokenType", "Bearer",
+                        "statusCode", 200
                 ));
     }
 }
