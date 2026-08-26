@@ -47,4 +47,16 @@ public class GlobalExceptionHandler {
                         "statusCode", 401
                 ));
     }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleUserNotFound(
+            UserNotFoundException exception
+    ) {
+        return  ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of(
+                        "type", "userNotFound",
+                        "statusCode", 404
+                ));
+    }
 }

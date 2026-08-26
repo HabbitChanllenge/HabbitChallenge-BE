@@ -1,8 +1,10 @@
 package org.example.saessakroutine.user;
 
 import org.example.saessakroutine.dto.LoginRequest;
+import org.example.saessakroutine.dto.MyPageResponse;
 import org.example.saessakroutine.exception.PasswordMismatchException;
 import org.example.saessakroutine.exception.UserAlreadyExistsException;
+import org.example.saessakroutine.exception.UserNotFoundException;
 import org.example.saessakroutine.jwt.JwtTokenProvider;
 import org.springframework.transaction.annotation.Transactional;
 import org.example.saessakroutine.dto.SignupRequest;
@@ -51,5 +53,18 @@ public class UserService {
         }
 
         return jwtTokenProvider.createAccessToken(user.getEmail());
+    }
+
+    @Transactional
+    public MyPageResponse getMyPage(String email){
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+
+        return new MyPageResponse(
+                user.getId(),
+                user.getUserId(),
+                user.getEmail(),
+                200
+        );
     }
 }
