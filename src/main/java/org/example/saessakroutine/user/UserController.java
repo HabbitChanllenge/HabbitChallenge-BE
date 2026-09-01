@@ -4,13 +4,11 @@ import jakarta.validation.Valid;
 import org.example.saessakroutine.dto.LoginRequest;
 import org.example.saessakroutine.dto.MyPageResponse;
 import org.example.saessakroutine.dto.SignupRequest;
+import org.example.saessakroutine.dto.UpdateMyPageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -50,5 +48,18 @@ public class UserController {
     @GetMapping("/user/me")
     public ResponseEntity<MyPageResponse> getMyPage(@AuthenticationPrincipal String email) {
         return ResponseEntity.ok(userService.getMyPage(email));
+    }
+
+    @PatchMapping("/user/me")
+    public ResponseEntity<Map<String, Object>> updateMyPage(@AuthenticationPrincipal String email, @Valid @RequestBody UpdateMyPageRequest request) {
+        String accessToken = userService.updateMyPage(email, request);
+
+        return ResponseEntity
+                .ok(Map.of(
+                        "message", "마이페이지가 성공적으로 수정되었습니다.",
+                        "accessToken", accessToken,
+                        "tokenType", "Bearer",
+                        "statusCode", 200
+                ));
     }
 }

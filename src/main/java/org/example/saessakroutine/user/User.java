@@ -33,6 +33,18 @@ public class User {
         this.allStreak = 0;
     }
 
+    public void updateUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void updateEmail(String email) {
+        this.email = email;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+
     public Long getId() {return id;}
     public String getUserId() {return userId;}
     public String getPassword() {return password;}

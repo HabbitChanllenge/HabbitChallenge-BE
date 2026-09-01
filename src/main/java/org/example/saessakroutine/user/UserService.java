@@ -2,6 +2,7 @@ package org.example.saessakroutine.user;
 
 import org.example.saessakroutine.dto.LoginRequest;
 import org.example.saessakroutine.dto.MyPageResponse;
+import org.example.saessakroutine.dto.UpdateMyPageRequest;
 import org.example.saessakroutine.exception.PasswordMismatchException;
 import org.example.saessakroutine.exception.UserAlreadyExistsException;
 import org.example.saessakroutine.exception.UserNotFoundException;
@@ -66,5 +67,34 @@ public class UserService {
                 user.getEmail(),
                 200
         );
+    }
+
+    @Transactional
+    public String updateMyPage(String email, UpdateMyPageRequest request){
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+
+        if (request.userId() != null) {
+            user.updateUserId(request.userId());
+        }
+
+        if (request.email() != null && !request.email().equals(user.getEmail())) {
+            if (userRepository.existsByEmail(request.email())) {
+                throw new UserAlreadyExistsException();
+            }
+
+            user.updateEmail(request.email());
+        }
+
+        if (request.newPassword() != null) {
+            if (request.currentPassword() == null || !passwordEncoder.matches(
+                    request.currentPassword(),
+                    user.getPassword()
+            )) {
+                throw new PasswordMismatchException();
+            }
+            user.updatePassword(passwordEncoder.encode(request.newPassword()));
+        }
+        return jwtTokenProvider.createAccessToken(user.getEmail());
     }
 }
