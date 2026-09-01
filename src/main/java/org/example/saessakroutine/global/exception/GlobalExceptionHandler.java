@@ -1,5 +1,8 @@
-package org.example.saessakroutine.exception;
+package org.example.saessakroutine.global.exception;
 
+import org.example.saessakroutine.user.exception.PasswordMismatchException;
+import org.example.saessakroutine.user.exception.UserAlreadyExistsException;
+import org.example.saessakroutine.user.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

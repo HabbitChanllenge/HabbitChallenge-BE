@@ -1,4 +1,4 @@
-package org.example.saessakroutine.exception;
+package org.example.saessakroutine.user.exception;
 
 public class PasswordMismatchException extends RuntimeException {
 

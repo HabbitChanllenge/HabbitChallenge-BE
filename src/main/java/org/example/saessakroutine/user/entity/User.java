@@ -1,4 +1,4 @@
-package org.example.saessakroutine.user;
+package org.example.saessakroutine.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;

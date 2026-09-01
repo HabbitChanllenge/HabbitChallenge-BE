@@ -1,10 +1,12 @@
-package org.example.saessakroutine.user;
+package org.example.saessakroutine.user.service;
 
-import org.example.saessakroutine.dto.*;
-import org.example.saessakroutine.exception.PasswordMismatchException;
-import org.example.saessakroutine.exception.UserAlreadyExistsException;
-import org.example.saessakroutine.exception.UserNotFoundException;
+import org.example.saessakroutine.user.exception.PasswordMismatchException;
+import org.example.saessakroutine.user.exception.UserAlreadyExistsException;
+import org.example.saessakroutine.user.exception.UserNotFoundException;
 import org.example.saessakroutine.jwt.JwtTokenProvider;
+import org.example.saessakroutine.user.dto.*;
+import org.example.saessakroutine.user.entity.User;
+import org.example.saessakroutine.user.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
