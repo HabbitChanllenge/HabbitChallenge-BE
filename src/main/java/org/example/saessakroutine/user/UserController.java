@@ -1,10 +1,7 @@
 package org.example.saessakroutine.user;
 
 import jakarta.validation.Valid;
-import org.example.saessakroutine.dto.LoginRequest;
-import org.example.saessakroutine.dto.MyPageResponse;
-import org.example.saessakroutine.dto.SignupRequest;
-import org.example.saessakroutine.dto.UpdateMyPageRequest;
+import org.example.saessakroutine.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -59,6 +56,17 @@ public class UserController {
                         "message", "마이페이지가 성공적으로 수정되었습니다.",
                         "accessToken", accessToken,
                         "tokenType", "Bearer",
+                        "statusCode", 200
+                ));
+    }
+
+    @DeleteMapping("/resign")
+    public ResponseEntity<Map<String, Object>> withdraw(@AuthenticationPrincipal String email, @Valid @RequestBody WithdrawRequest request) {
+        userService.withdraw(email, request);
+
+        return ResponseEntity
+                .ok(Map.of(
+                        "message", "회원 탈퇴가 완료되었습니다.",
                         "statusCode", 200
                 ));
     }

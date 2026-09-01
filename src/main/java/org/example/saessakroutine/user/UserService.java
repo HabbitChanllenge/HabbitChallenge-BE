@@ -1,14 +1,11 @@
 package org.example.saessakroutine.user;
 
-import org.example.saessakroutine.dto.LoginRequest;
-import org.example.saessakroutine.dto.MyPageResponse;
-import org.example.saessakroutine.dto.UpdateMyPageRequest;
+import org.example.saessakroutine.dto.*;
 import org.example.saessakroutine.exception.PasswordMismatchException;
 import org.example.saessakroutine.exception.UserAlreadyExistsException;
 import org.example.saessakroutine.exception.UserNotFoundException;
 import org.example.saessakroutine.jwt.JwtTokenProvider;
 import org.springframework.transaction.annotation.Transactional;
-import org.example.saessakroutine.dto.SignupRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -96,5 +93,17 @@ public class UserService {
             user.updatePassword(passwordEncoder.encode(request.newPassword()));
         }
         return jwtTokenProvider.createAccessToken(user.getEmail());
+    }
+
+    @Transactional
+    public void withdraw(String email, WithdrawRequest request){
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+
+        if (!passwordEncoder.matches(request.password(), user.getPassword())) {
+            throw new PasswordMismatchException();
+        }
+
+        userRepository.delete(user);
     }
 }
