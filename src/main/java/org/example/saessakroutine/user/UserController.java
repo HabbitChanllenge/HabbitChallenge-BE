@@ -70,4 +70,13 @@ public class UserController {
                         "statusCode", 200
                 ));
     }
+
+    @PostMapping("/logout")
+    public  ResponseEntity<Map<String, Object>> logout() {
+        return ResponseEntity
+                .ok(Map.of(
+                        "message", "로그아웃이 완료되었습니다.",
+                        "statusCode", 200
+                ));
+    }
 }
