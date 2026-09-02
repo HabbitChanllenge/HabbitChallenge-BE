@@ -1,4 +1,4 @@
-package org.example.saessakroutine.user;
+package org.example.saessakroutine.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -31,6 +31,18 @@ public class User {
         this.password = password;
         this.email = email;
         this.allStreak = 0;
+    }
+
+    public void updateUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void updateEmail(String email) {
+        this.email = email;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {return id;}

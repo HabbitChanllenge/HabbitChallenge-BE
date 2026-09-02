@@ -1,5 +1,6 @@
-package org.example.saessakroutine.user;
+package org.example.saessakroutine.user.repository;
 
+import org.example.saessakroutine.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
