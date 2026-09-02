@@ -1,4 +1,4 @@
-package org.example.saessakroutine.user.dto;
+package org.example.saessakroutine.user.dto.mypage;
 
 
 public record MyPageResponse(

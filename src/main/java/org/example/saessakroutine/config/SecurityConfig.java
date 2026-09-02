@@ -44,7 +44,7 @@ public class SecurityConfig {
                         })
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/signup","/login").permitAll()
+                        .requestMatchers("/signup","/login","/password-reset/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(

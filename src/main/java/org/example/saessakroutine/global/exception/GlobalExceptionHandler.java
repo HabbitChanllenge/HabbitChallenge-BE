@@ -3,6 +3,7 @@ package org.example.saessakroutine.global.exception;
 import org.example.saessakroutine.user.exception.PasswordMismatchException;
 import org.example.saessakroutine.user.exception.UserAlreadyExistsException;
 import org.example.saessakroutine.user.exception.UserNotFoundException;
+import org.example.saessakroutine.user.exception.password.VerificationCodeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -60,6 +61,19 @@ public class GlobalExceptionHandler {
                 .body(Map.of(
                         "type", "userNotFound",
                         "statusCode", 404
+                ));
+    }
+
+    @ExceptionHandler(VerificationCodeException.class)
+    public ResponseEntity<Map<String, Object>> handleVerificationCodeException(
+            VerificationCodeException exception
+    ) {
+        return  ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of(
+                        "type", "verificationCodeError",
+                        "message", exception.getMessage(),
+                        "statusCode", 400
                 ));
     }
 }

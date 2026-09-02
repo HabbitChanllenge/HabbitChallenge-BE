@@ -1,8 +1,12 @@
 package org.example.saessakroutine.user.controller;
 
 import jakarta.validation.Valid;
+import org.example.saessakroutine.user.dto.auth.LoginRequest;
+import org.example.saessakroutine.user.dto.auth.SignupRequest;
+import org.example.saessakroutine.user.dto.mypage.MyPageResponse;
+import org.example.saessakroutine.user.dto.mypage.UpdateMyPageRequest;
+import org.example.saessakroutine.user.dto.mypage.WithdrawRequest;
 import org.example.saessakroutine.user.service.UserService;
-import org.example.saessakroutine.user.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

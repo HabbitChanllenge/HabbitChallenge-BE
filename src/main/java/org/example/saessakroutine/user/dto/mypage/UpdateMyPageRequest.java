@@ -1,4 +1,4 @@
-package org.example.saessakroutine.user.dto;
+package org.example.saessakroutine.user.dto.mypage;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
