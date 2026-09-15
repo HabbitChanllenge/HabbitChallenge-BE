@@ -1,4 +1,4 @@
-package org.example.saessakroutine.domain.board.service;
+package org.example.saessakroutine.domain.habit.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.saessakroutine.domain.repository.HabitRepository;

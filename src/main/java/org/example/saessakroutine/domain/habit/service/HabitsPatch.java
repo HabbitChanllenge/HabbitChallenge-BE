@@ -1,9 +1,9 @@
-package org.example.saessakroutine.domain.board.service;
+package org.example.saessakroutine.domain.habit.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.saessakroutine.domain.board.persistence.dto.request.HabitsPatchRequest;
-import org.example.saessakroutine.domain.board.persistence.dto.status.exceptions.BadRequestException;
-import org.example.saessakroutine.domain.board.persistence.dto.status.exceptions.NotThingException;
+import org.example.saessakroutine.domain.habit.persistence.dto.request.HabitsPatchRequest;
+import org.example.saessakroutine.domain.habit.persistence.dto.status.exceptions.BadRequestException;
+import org.example.saessakroutine.domain.habit.persistence.dto.status.exceptions.NotThingException;
 import org.example.saessakroutine.domain.entity.DailyHabit;
 import org.example.saessakroutine.domain.entity.Habit;
 import org.example.saessakroutine.domain.entity.WeeklyHabit;

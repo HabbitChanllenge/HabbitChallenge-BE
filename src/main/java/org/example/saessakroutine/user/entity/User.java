@@ -2,8 +2,14 @@ package org.example.saessakroutine.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
+import org.example.saessakroutine.domain.entity.Habit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Getter
 @Table(name = "users")
 public class User {
 
@@ -45,9 +51,7 @@ public class User {
         this.password = password;
     }
 
-    public Long getId() {return id;}
-    public String getUserId() {return userId;}
-    public String getPassword() {return password;}
-    public String getEmail() {return email;}
-    public int getAllStreak() {return allStreak;}
+
+    @OneToMany(mappedBy = "habit")
+    private List<Habit> habit = new ArrayList<>();
 }

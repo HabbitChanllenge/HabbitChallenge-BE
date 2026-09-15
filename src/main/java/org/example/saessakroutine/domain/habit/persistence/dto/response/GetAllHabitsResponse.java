@@ -1,7 +1,5 @@
-package org.example.saessakroutine.domain.board.persistence.dto.response;
+package org.example.saessakroutine.domain.habit.persistence.dto.response;
 
-import ch.qos.logback.core.model.processor.ChainedModelFilter;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.saessakroutine.domain.entity.Habit;

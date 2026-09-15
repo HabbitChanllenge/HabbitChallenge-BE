@@ -1,16 +1,18 @@
-package org.example.saessakroutine.domain.board.presentation.controller;
+package org.example.saessakroutine.domain.habit.presentation.controller;
 import lombok.RequiredArgsConstructor;
-import org.example.saessakroutine.domain.board.persistence.dto.request.DailyHabitCreatRequest;
-import org.example.saessakroutine.domain.board.persistence.dto.request.HabitCompleteRequest;
-import org.example.saessakroutine.domain.board.persistence.dto.request.HabitsPatchRequest;
-import org.example.saessakroutine.domain.board.persistence.dto.request.WeeklyHabitCreatRequest;
-import org.example.saessakroutine.domain.board.persistence.dto.response.GetAllHabitsResponse;
-import org.example.saessakroutine.domain.board.persistence.dto.status.StatusResponse;
-import org.example.saessakroutine.domain.board.service.*;
+import org.example.saessakroutine.domain.habit.persistence.dto.request.DailyHabitCreatRequest;
+import org.example.saessakroutine.domain.habit.persistence.dto.request.HabitCompleteRequest;
+import org.example.saessakroutine.domain.habit.persistence.dto.request.HabitsPatchRequest;
+import org.example.saessakroutine.domain.habit.persistence.dto.request.WeeklyHabitCreatRequest;
+import org.example.saessakroutine.domain.habit.persistence.dto.response.GetAllHabitsResponse;
+import org.example.saessakroutine.domain.habit.persistence.dto.status.StatusResponse;
+import org.example.saessakroutine.domain.habit.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.Authenticator;
+import java.security.AuthProvider;
 import java.util.List;
 
 
@@ -57,8 +59,9 @@ public class Controller {
     }
 
     @GetMapping("/habit")
-    public List<GetAllHabitsResponse> getAllHabit (){
-        return readAllHabits.ReadAll();
+    public List<GetAllHabitsResponse> getAllHabit (Authenticator authenticator){
+
+        return readAllHabits.ReadAllHabit();
     } //여기에는 상태코드와함께 반환할 메시지가 필요없어서
 
     @PatchMapping("/habit/update/{id}")

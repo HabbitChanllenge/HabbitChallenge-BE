@@ -1,4 +1,4 @@
-package org.example.saessakroutine.domain.board.service.count;
+package org.example.saessakroutine.domain.habit.service.count;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

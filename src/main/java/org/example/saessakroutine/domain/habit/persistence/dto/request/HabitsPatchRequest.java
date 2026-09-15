@@ -1,4 +1,4 @@
-package org.example.saessakroutine.domain.board.persistence.dto.request;
+package org.example.saessakroutine.domain.habit.persistence.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

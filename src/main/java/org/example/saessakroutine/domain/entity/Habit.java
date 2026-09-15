@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.saessakroutine.user.entity.User;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -24,6 +26,10 @@ public class Habit {
     private String periodType;
     //마지막 습관 인증날짜 저장하는 필드 삭제.
     //전체 스트릭을 판단하기 위한 필드였는데 0시가 되었을때 모든 습관이 인증 되었는지만 확인하면 되므로.
+    //=====================================================================
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 
     //===================================================================== 카테고리
     @ElementCollection //클래스는 아니나, 클래스 처럼 사용할 수 있도록 설명해주는? 어노테이션. 1:N관계에서 많이 사용함 (정확한 내요은 공부하기)
@@ -35,10 +41,11 @@ public class Habit {
 
     //===================================================================== 생성자
     @Builder
-    public Habit(String name, String periodType, List<String> category){
+    public Habit(String name, String periodType, List<String> category, User user){
         this.name = name;
         this.periodType = periodType;
         this.category = category;
+        this.user = user;
     }
 
     //====================================================================== Daily와 Weekly엔티티와의 관계를 이어주기 위한 코드
@@ -55,6 +62,9 @@ public class Habit {
     public void Weekly (WeeklyHabit weeklyHabit){
         this.weeklyHabit = weeklyHabit;
     }
+
+
+
 
     //======================================================================= 습관 인증후 인증 기록 저장을 위한 코드들
     public void CompleteUpdateDay(int completedCount, boolean completed){

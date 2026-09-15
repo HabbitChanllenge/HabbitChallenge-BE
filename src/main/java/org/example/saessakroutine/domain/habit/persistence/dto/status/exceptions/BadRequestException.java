@@ -1,4 +1,4 @@
-package org.example.saessakroutine.domain.board.persistence.dto.status.exceptions;
+package org.example.saessakroutine.domain.habit.persistence.dto.status.exceptions;
 
 import lombok.NoArgsConstructor;
 
