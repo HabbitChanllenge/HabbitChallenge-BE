@@ -21,10 +21,10 @@ public class WeeklyHabit{
 
     //반복할 요일의 배열을 받고, 데이터베이스에 저장 후, 요일이 될때마다 인증을 하도록 버튼을 열어야 한다.
     //요일을 저장하고, 그 날의 요일이 무엇인지 확인하고 동작.
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Integer> weekOfDay = new ArrayList<>(); //요일을 저장하기 위해서 (배열의 크기가 7을 넘을 일이 없으니 일반 배열이 좋나?)
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Integer> nextWeekOfDay = new ArrayList<>();
     boolean changeWeekOfDay;
     //====================================================
@@ -50,6 +50,16 @@ public class WeeklyHabit{
     public void HabitUpdate_Week(List<Integer> weekOfDay, boolean changeWeekOfDay){
         this.nextWeekOfDay = weekOfDay; //여기에 변경사항이 1차적으로 저장한 이후, 다음주 월요일 00시가 되었을때 weekOfDay에 저장
         this.changeWeekOfDay = changeWeekOfDay; //변경사항이 있다면 참으로 바뀜
+    }
+
+    public void HabitUpdate_Week_Real(){
+        this.weekOfDay = this.nextWeekOfDay;
+        this.changeWeekOfDay = false;
+        this.standardWeek = this.weekOfDay.size(); //총 인증요일 수가 달라졌으므로
+    }
+
+    public void NewWeekCount(){
+        this.countWeek = 0; //새로운 주가 되었을 때 초기화
     }
 
     //====================================================

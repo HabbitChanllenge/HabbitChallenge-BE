@@ -5,8 +5,13 @@ import org.example.saessakroutine.domain.habit.persistence.dto.request.WeeklyHab
 import org.example.saessakroutine.domain.habit.persistence.dto.status.exceptions.BadRequestException;
 import org.example.saessakroutine.domain.entity.Habit;
 import org.example.saessakroutine.domain.entity.WeeklyHabit;
+import org.example.saessakroutine.domain.habit.persistence.dto.status.exceptions.NoContentsException;
 import org.example.saessakroutine.domain.repository.HabitRepository;
 import org.example.saessakroutine.domain.repository.WeekRepository;
+import org.example.saessakroutine.user.entity.User;
+import org.example.saessakroutine.user.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CreateWeeklyHabit {
     private final WeekRepository weekRepository;
     private final HabitRepository habitRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public String weeklyCreate(WeeklyHabitCreatRequest request){
@@ -28,10 +34,14 @@ public class CreateWeeklyHabit {
         }
         //=================================위에는 예외처리
         //=================================밑에는 습관 생성코드
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(authentication.getName()).orElseThrow(()->new NoContentsException("유저가 존재하지 않습니다."));
+
         Habit habit = Habit.builder()
                 .name(request.getHabitName())
                 .periodType(request.getPeriodType())
                 .category(request.getCategory())
+                .user(user)
                 .build();
         habitRepository.save(habit);
 

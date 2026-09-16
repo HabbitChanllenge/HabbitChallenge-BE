@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.saessakroutine.user.entity.User;
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +30,7 @@ public class Habit {
     private User user;
 
     //===================================================================== 카테고리
-    @ElementCollection //클래스는 아니나, 클래스 처럼 사용할 수 있도록 설명해주는? 어노테이션. 1:N관계에서 많이 사용함 (정확한 내요은 공부하기)
+    @ElementCollection(fetch = FetchType.EAGER) //클래스는 아니나, 클래스 처럼 사용할 수 있도록 설명해주는? 어노테이션. 1:N관계에서 많이 사용함 (정확한 내용은 공부하기)
     @CollectionTable(name = "category", joinColumns = @JoinColumn(name = "habitId"))
     //위의 어노테이션으로 설정한 테이블을 실제로 구현하기 위한 설명. 테이블의 이름, 상속(?)하는 테이블의 아이디를 알려준다.
     @Column(name = "categories")
@@ -64,8 +62,6 @@ public class Habit {
     }
 
 
-
-
     //======================================================================= 습관 인증후 인증 기록 저장을 위한 코드들
     public void CompleteUpdateDay(int completedCount, boolean completed){
         this.completedCount = completedCount;
@@ -90,5 +86,14 @@ public class Habit {
     }
     public void UpdateHabits_category(List<String> category){
         this.category = category;
+    }
+    //======================================================================= 일주일 습관 인증버튼 활성화
+    public void WeekCompleted(Boolean completed){this.completed = completed;}
+    public void WeekStreak(Boolean streak){
+        if(streak){
+            this.streak+=1; //일주일 기준 습관을 모두 인증하였으면 스트릭 +1
+        } else {
+            this.streak = 0; //아니라면 습관의 스트릭 초기화
+        }
     }
 }

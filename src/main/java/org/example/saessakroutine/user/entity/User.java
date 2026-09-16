@@ -51,7 +51,11 @@ public class User {
         this.password = password;
     }
 
+    public void updateAllStreak(int allStreak){
+        this.allStreak = allStreak;
+    }
 
-    @OneToMany(mappedBy = "habit")
+
+    @OneToMany(mappedBy = "user")
     private List<Habit> habit = new ArrayList<>();
 }

@@ -9,6 +9,7 @@ import org.example.saessakroutine.user.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReadAllHabits {
     private final UserRepository userRepository;
-    public List<GetAllHabitsResponse> ReadAllHabit(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    @Transactional
+    public List<GetAllHabitsResponse> ReadAllHabit(Authentication authentication){
         User user = userRepository.findByEmail(authentication.getName()).orElseThrow(()->new NoContentsException("유저가 존재하지 않습니다."));
 
         List<Habit> allHabitResponserList = user.getHabit().stream().toList();

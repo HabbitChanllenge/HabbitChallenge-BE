@@ -3,12 +3,14 @@ package org.example.saessakroutine.domain.habit.persistence.dto.response;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.saessakroutine.domain.entity.Habit;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
+@Transactional
 public class GetAllHabitsResponse {
     private Long habit_id;
     private String name;

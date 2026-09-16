@@ -9,6 +9,7 @@ import org.example.saessakroutine.domain.habit.persistence.dto.status.StatusResp
 import org.example.saessakroutine.domain.habit.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.Authenticator;
@@ -59,9 +60,9 @@ public class Controller {
     }
 
     @GetMapping("/habit")
-    public List<GetAllHabitsResponse> getAllHabit (Authenticator authenticator){
+    public List<GetAllHabitsResponse> getAllHabit (Authentication authentication){
 
-        return readAllHabits.ReadAllHabit();
+        return readAllHabits.ReadAllHabit(authentication);
     } //여기에는 상태코드와함께 반환할 메시지가 필요없어서
 
     @PatchMapping("/habit/update/{id}")
