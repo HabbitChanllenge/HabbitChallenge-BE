@@ -26,7 +26,7 @@ public class PasswordResetController {
         return ResponseEntity.ok(
                 Map.of(
                        "message", "인증번호가 이메일로 전송되었습니다.",
-                        "status", 200
+                        "statusCode", 200
                 ));
     }
 
@@ -37,7 +37,7 @@ public class PasswordResetController {
         return ResponseEntity.ok(
                 Map.of(
                         "message", "이메일 인증이 완료되었습니다.",
-                        "status", 200
+                        "statusCode", 200
                 ));
     }
 
@@ -48,7 +48,7 @@ public class PasswordResetController {
         return ResponseEntity.ok(
                 Map.of(
                         "message", "비밀번호가 성공적으로 변경되었습니다.",
-                        "status", 200
+                        "statusCode", 200
                 ));
     }
 }
