@@ -29,6 +29,8 @@ public class User {
     @Column(nullable = false)
     private int allStreak;
 
+    private boolean allStreakCount; //전체 스트릭 계산을 위해서
+
     protected User() {}
 
     @Builder
@@ -53,6 +55,10 @@ public class User {
 
     public void updateAllStreak(int allStreak){
         this.allStreak = allStreak;
+    }
+
+    public void updateAllStreakCount(boolean allStreakCount){
+        this.allStreakCount = allStreakCount;
     }
 
 

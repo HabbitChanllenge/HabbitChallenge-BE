@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.saessakroutine.user.entity.User;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,8 +90,10 @@ public class Habit {
         this.category = category;
     }
     //======================================================================= 일주일 습관 인증버튼 활성화
-    public void WeekCompleted(Boolean completed){this.completed = completed;}
-    public void WeekStreak(Boolean streak){
+    @Transactional
+    public void CompletedUpdate(Boolean completed){this.completed = completed;}
+    @Transactional
+    public void HabitStreak(Boolean streak){
         if(streak){
             this.streak+=1; //일주일 기준 습관을 모두 인증하였으면 스트릭 +1
         } else {

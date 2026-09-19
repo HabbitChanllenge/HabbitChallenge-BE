@@ -27,16 +27,13 @@ public class WeeklyHabit{
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Integer> nextWeekOfDay = new ArrayList<>();
     boolean changeWeekOfDay;
-    //====================================================
-
     private int standardWeek; //일주일에 몇번의 인증요일을 설정했는지 저장
+    private int countWeek;
+
     public void CreateWeekCount(){
         this.standardWeek = this.weekOfDay.toArray().length;
     }
 
-    //====================================================
-
-    private int countWeek;
     public void AddWeekStreak(){
         this.countWeek++;
     }
