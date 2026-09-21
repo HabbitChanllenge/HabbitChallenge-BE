@@ -3,11 +3,13 @@ package org.example.saessakroutine.domain.habit.service.count;
 import lombok.RequiredArgsConstructor;
 import org.example.saessakroutine.domain.entity.WeeklyHabit;
 import org.example.saessakroutine.domain.repository.WeekRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RequiredArgsConstructor
+@Component
 public class WeekOfDayTime {
     private final WeekRepository weekRepository;
 
@@ -21,6 +23,7 @@ public class WeekOfDayTime {
             weeklyHabit.getHabit().CompletedUpdate(false); //인증해야 하는 요일이 화요일일때 버튼 활성화
         }
         for(WeeklyHabit weeklyHabit : otherWeeklyHabit){
+            System.out.println("여기까진 OK");
             weeklyHabit.getHabit().CompletedUpdate(true);
         }
 

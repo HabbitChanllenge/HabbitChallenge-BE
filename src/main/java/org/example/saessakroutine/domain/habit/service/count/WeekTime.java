@@ -1,13 +1,17 @@
 package org.example.saessakroutine.domain.habit.service.count;
 
+import lombok.RequiredArgsConstructor;
 import org.example.saessakroutine.domain.entity.WeeklyHabit;
 import org.example.saessakroutine.domain.repository.WeekRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Component
+@RequiredArgsConstructor
 public class WeekTime {
-    WeekRepository weekRepository;
+    private final WeekRepository weekRepository;
 
     @Transactional
     public void NewWeek(){

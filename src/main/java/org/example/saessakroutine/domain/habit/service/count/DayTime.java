@@ -17,23 +17,21 @@ public class DayTime {
     private final DayRepository dayRepository;
     private final UserRepository userRepository;
 
-    WhatWeekOfDay weekOfDay = new WhatWeekOfDay();
+    private final WhatWeekOfDay weekOfDay;
 
-    @Scheduled(cron = "1/10 * * * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     public void NewDay(){
+        System.out.println("오류 없음!!");
         List<DailyHabit> dailyHabits = dayRepository.findAll().stream().toList();
         for(DailyHabit dailyHabit : dailyHabits){
             if(!dailyHabit.getHabit().isCompleted()){
-                dailyHabit.getHabit().HabitStreak(false);
                 if ((dailyHabit.getHabit().getUser().isAllStreakCount())){
                     dailyHabit.getHabit().getUser().updateAllStreakCount(false); //하나라도 인증을 안하면 전체 스트릭 초기화를 하기 위해 표시
                 }
                 if(dailyHabit.getHabit().getUser().getAllStreak() != 0){
                     dailyHabit.getHabit().getUser().updateAllStreak(0);
                 }
-            } else {
-                dailyHabit.getHabit().HabitStreak(true);
             }
             dailyHabit.getHabit().CompletedUpdate(false); //전부 false로 바꿔서 인증버튼 활성화
         }

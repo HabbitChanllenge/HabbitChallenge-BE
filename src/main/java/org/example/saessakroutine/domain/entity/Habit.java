@@ -41,11 +41,12 @@ public class Habit {
 
     //===================================================================== 생성자
     @Builder
-    public Habit(String name, String periodType, List<String> category, User user){
+    public Habit(String name, String periodType, List<String> category, User user, Boolean completed){
         this.name = name;
         this.periodType = periodType;
         this.category = category;
         this.user = user;
+        this.completed = completed;
     }
 
     //====================================================================== Daily와 Weekly엔티티와의 관계를 이어주기 위한 코드
@@ -69,12 +70,15 @@ public class Habit {
         this.completedCount = completedCount;
         if(this.completed){
             if(!completed){
-                streak--;
+                --streak;
+            }
+        } else { //이미 참인데도 여러번 인증해서 스트릭이 여러번 늘어날 수 있으므로
+            if(completed){
+                ++streak;
+                System.out.println("complete에서 스트릭 증가!");
             }
         }
-        if(completed){
-            streak++;
-        }
+
         this.completed = completed;
     }
     public void CompleteUpdateWeek(int completedCount, boolean completed){

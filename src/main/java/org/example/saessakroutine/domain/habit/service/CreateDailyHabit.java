@@ -46,6 +46,7 @@ public class CreateDailyHabit {
                 .periodType(request.getPeriodType())
                 .category(request.getCategory())
                 .user(user)
+                .completed(false)
                 .build();
         habitRepository.save(habit);
 

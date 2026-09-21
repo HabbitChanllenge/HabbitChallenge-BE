@@ -1,14 +1,19 @@
 package org.example.saessakroutine.domain.habit.service.count;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.util.Calendar;
 
+@Component
+@RequiredArgsConstructor
 public class WhatWeekOfDay {
     Calendar calendar = Calendar.getInstance();
-//    int weekOfDay = calendar.get(Calendar.DAY_OF_WEEK);
-    int weekOfDay = 1;
+    int weekOfDay = calendar.get(Calendar.DAY_OF_WEEK);
+//    int weekOfDay = 3; //테스트용 코드
 
-    WeekTime weekTime = new WeekTime();
-    WeekOfDayTime weekOfDayTime = new WeekOfDayTime();
+    private final WeekTime weekTime;
+    private final WeekOfDayTime weekOfDayTime;
 
     public void WhatDay(){
         if(weekOfDay == 2){
