@@ -48,6 +48,7 @@ public class CreateDailyHabit {
                 .user(user)
                 .completed(false)
                 .build();
+        user.updateAllHabits(true);
         habitRepository.save(habit);
 
         DailyHabit dalyHabit = DailyHabit.builder()

@@ -9,6 +9,7 @@ import org.example.saessakroutine.domain.entity.DailyHabit;
 import org.example.saessakroutine.domain.entity.Habit;
 import org.example.saessakroutine.domain.repository.DayRepository;
 import org.example.saessakroutine.domain.repository.HabitRepository;
+import org.example.saessakroutine.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class CompleteHabit {
     private final HabitRepository habitRepository;
     private final DayRepository dayRepository;
+    private final UserRepository userRepository;
     private final WeekStreak weekStreak;
 
     public String Complete(Long id, HabitCompleteRequest request){
@@ -24,6 +26,8 @@ public class CompleteHabit {
             if(request.getCompletedCount() == 1){
                 weekStreak.CountWeek(id, habit.isCompleted(), true); //일주일 습관 인증 스트릭 계산을 위해서
                 habit.CompleteUpdateWeek(request.getCompletedCount(), true);
+                habit.getUser().updateCompletedHabits(true); //인증한 습관 개수 갱신
+
             } else if(request.getCompletedCount() < 1){
                 weekStreak.CountWeek(id, habit.isCompleted(), false); //일주일 습관 인증 스트릭 계산을 위해서
                 habit.CompleteUpdateWeek(request.getCompletedCount(), false);
@@ -34,6 +38,9 @@ public class CompleteHabit {
             DailyHabit dailyHabit = dayRepository.findById(id).orElseThrow(()->new IllegalArgumentException("하루기준 습관이 생성되어있지 않습니다."));
             if(request.getCompletedCount() == dailyHabit.getTotalRepeat()){
                 habit.CompleteUpdateDay(request.getCompletedCount(), true); //일주일기준 습관과 스트릭 계산이 달라 분리
+
+                habit.getUser().updateCompletedHabits(true);//인증한 습관개수 갱신
+
             } else if(request.getCompletedCount() > dailyHabit.getTotalRepeat()){
                 throw new BadRequestException("인증요청이 올바르지 않습니다.");
             } else {
@@ -41,6 +48,11 @@ public class CompleteHabit {
             }
         }
         habitRepository.save(habit); //이걸 안하면 DB에 반영이 안됨
+        userRepository.save(habit.getUser());
+        if (habit.getUser().getCompletedHabits() == habit.getUser().getAllHabits()){
+            habit.getUser().updateAllStreak(true);
+            userRepository.save(habit.getUser());
+        }
         return "습관 인증 정보가 수정되었습니다.";
     }
 }

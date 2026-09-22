@@ -25,7 +25,7 @@ public class CreateWeeklyHabit {
     private final UserRepository userRepository;
 
     Calendar calendar = Calendar.getInstance();
-    int weekOfDay = calendar.get(Calendar.DAY_OF_WEEK);
+    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
     @Transactional
     public String weeklyCreate(WeeklyHabitCreatRequest request){
@@ -49,6 +49,7 @@ public class CreateWeeklyHabit {
                 .user(user)
                 .completed(true) //일단 생성 할때는 버튼을 막아 두었다가 밑에서 for문으로 해당하는 오늘이 해당하는 요일인지 판단하고 false로 바꾸어 버튼을 활성화 시킨다.
                 .build();
+        user.updateAllHabits(true);
         habitRepository.save(habit);
 
         WeeklyHabit weeklyHabit = WeeklyHabit.builder()
@@ -58,8 +59,9 @@ public class CreateWeeklyHabit {
         weeklyHabit.CreateWeekCount(); //인증할 요일을 선택한 배열을 받아서 배열의 크기를 저장하는 메서드(스트릭을 계산할 때 사용하기 위해서)
 
         for(int i = 0; i < weeklyHabit.getWeekOfDay().size(); i++){
-            if(weeklyHabit.getWeekOfDay().get(i).equals(weekOfDay)){
+            if(weeklyHabit.getWeekOfDay().get(i).equals(dayOfWeek)){
                 weeklyHabit.getHabit().CompletedUpdate(false); //생성한 습관이 생성한 날의 요일이라면 인증 활성화 아니라면 true로 막아두기
+                System.out.println(dayOfWeek);
             }
         }
         weekRepository.save(weeklyHabit);

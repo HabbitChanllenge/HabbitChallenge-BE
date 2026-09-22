@@ -29,7 +29,9 @@ public class User {
     @Column(nullable = false)
     private int allStreak;
 
-    private boolean allStreakCount; //전체 스트릭 계산을 위해서
+    private int allHabits; //생성된 습관의 수를 저장
+
+    private int completedHabits; //완료된 습관드의 수를 저장
 
     protected User() {}
 
@@ -39,6 +41,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.allStreak = 0;
+        this.allHabits = 0;
     }
 
     public void updateUserId(String userId) {
@@ -53,18 +56,29 @@ public class User {
         this.password = password;
     }
 
-    public void updateAllStreak(boolean allStreakCount){
-        if(allStreakCount){
+    public void updateAllStreak(boolean completed){
+        if(completed){
             this.allStreak++;
         } else {
             this.allStreak = 0;
         }
     }
 
-    public void updateAllStreakCount(boolean allStreakCount){
-        this.allStreakCount = allStreakCount;
+    public void updateAllHabits(boolean exist){
+        if(exist){
+            this.allHabits++; //습관을 생성했을 때
+        } else {
+            this.allHabits--; //습관을 삭제했을 때
+        }
     }
 
+    public void updateCompletedHabits(boolean completed){
+        if(completed){
+            this.completedHabits++; //습관 인증을 완료했을 때
+        } else {
+            this.completedHabits = 0; //새로운 날이 되었을 때 초기화
+        }
+    }
 
     @OneToMany(mappedBy = "user")
     private List<Habit> habit = new ArrayList<>();
