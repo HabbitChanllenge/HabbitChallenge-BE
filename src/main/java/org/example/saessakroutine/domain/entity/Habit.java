@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.saessakroutine.user.entity.User;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -24,9 +26,13 @@ public class Habit {
     private String periodType;
     //마지막 습관 인증날짜 저장하는 필드 삭제.
     //전체 스트릭을 판단하기 위한 필드였는데 0시가 되었을때 모든 습관이 인증 되었는지만 확인하면 되므로.
+    //=====================================================================
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 
     //===================================================================== 카테고리
-    @ElementCollection //클래스는 아니나, 클래스 처럼 사용할 수 있도록 설명해주는? 어노테이션. 1:N관계에서 많이 사용함 (정확한 내요은 공부하기)
+    @ElementCollection(fetch = FetchType.EAGER) //클래스는 아니나, 클래스 처럼 사용할 수 있도록 설명해주는? 어노테이션. 1:N관계에서 많이 사용함 (정확한 내용은 공부하기)
     @CollectionTable(name = "category", joinColumns = @JoinColumn(name = "habitId"))
     //위의 어노테이션으로 설정한 테이블을 실제로 구현하기 위한 설명. 테이블의 이름, 상속(?)하는 테이블의 아이디를 알려준다.
     @Column(name = "categories")
@@ -35,10 +41,12 @@ public class Habit {
 
     //===================================================================== 생성자
     @Builder
-    public Habit(String name, String periodType, List<String> category){
+    public Habit(String name, String periodType, List<String> category, User user, Boolean completed){
         this.name = name;
         this.periodType = periodType;
         this.category = category;
+        this.user = user;
+        this.completed = completed;
     }
 
     //====================================================================== Daily와 Weekly엔티티와의 관계를 이어주기 위한 코드
@@ -56,17 +64,21 @@ public class Habit {
         this.weeklyHabit = weeklyHabit;
     }
 
+
     //======================================================================= 습관 인증후 인증 기록 저장을 위한 코드들
     public void CompleteUpdateDay(int completedCount, boolean completed){
         this.completedCount = completedCount;
         if(this.completed){
             if(!completed){
-                streak--;
+                --streak;
+            }
+        } else { //이미 참인데도 여러번 인증해서 스트릭이 여러번 늘어날 수 있으므로
+            if(completed){
+                ++streak;
+                System.out.println("complete에서 스트릭 증가!");
             }
         }
-        if(completed){
-            streak++;
-        }
+
         this.completed = completed;
     }
     public void CompleteUpdateWeek(int completedCount, boolean completed){
@@ -80,5 +92,21 @@ public class Habit {
     }
     public void UpdateHabits_category(List<String> category){
         this.category = category;
+    }
+    //======================================================================= 일주일 습관 인증버튼 활성화
+    @Transactional
+    public void CompletedUpdate(Boolean completed){this.completed = completed;}
+    @Transactional
+    public void WeeklyHabitStreak(Boolean streak){
+        if(streak){
+            this.streak+=1; //일주일 기준 습관을 모두 인증하였으면 스트릭 +1
+        } else {
+            this.streak = 0; //아니라면 습관의 스트릭 초기화
+        }
+    }
+    public void ResetDayStreak(Boolean streak){
+        if(!streak){
+            this.streak = 0;
+        }
     }
 }
