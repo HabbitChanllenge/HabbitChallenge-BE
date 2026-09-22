@@ -6,11 +6,13 @@ import org.example.saessakroutine.domain.habit.persistence.dto.request.HabitsPat
 import org.example.saessakroutine.domain.habit.persistence.dto.request.WeeklyHabitCreatRequest;
 import org.example.saessakroutine.domain.habit.persistence.dto.response.GetAllHabitsResponse;
 import org.example.saessakroutine.domain.habit.persistence.dto.response.GetAllStreak;
+import org.example.saessakroutine.domain.habit.persistence.dto.response.GetRank;
 import org.example.saessakroutine.domain.habit.persistence.dto.status.StatusResponse;
 import org.example.saessakroutine.domain.habit.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +29,13 @@ public class Controller {
     private final ReadAllHabits readAllHabits;
     private final HabitsPatch habitsPatch;
     private final ReadAllStreak readAllStreak;
+    private final ReadRank readRank;
 
     @PostMapping("/habit/day")
-    public ResponseEntity<StatusResponse> postDailyHabit(@RequestBody DailyHabitCreatRequest request){
+    public ResponseEntity<StatusResponse> postDailyHabit(@RequestBody DailyHabitCreatRequest request, @AuthenticationPrincipal String email){
         StatusResponse statusResponse = new StatusResponse(
                 "OK",
-                createDailyHabit.dalyCreate(request));
+                createDailyHabit.dalyCreate(request, email));
         return new ResponseEntity<>(statusResponse, HttpStatus.CREATED);
     }
 
@@ -75,5 +78,9 @@ public class Controller {
     public GetAllStreak allStreak (Authentication authentication){
         return readAllStreak.AllStreak(authentication);
     }
-    //랭킹 컨트롤러
+
+    @GetMapping("/streaks/rank")
+    public List<GetRank> ranking (){
+        return readRank.Ranking();
+    }
 }

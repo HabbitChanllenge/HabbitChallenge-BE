@@ -10,8 +10,6 @@ import org.example.saessakroutine.domain.repository.DayRepository;
 import org.example.saessakroutine.domain.repository.HabitRepository;
 import org.example.saessakroutine.user.entity.User;
 import org.example.saessakroutine.user.repository.UserRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +21,7 @@ public class CreateDailyHabit {
     private final UserRepository userRepository;
 
     @Transactional
-    public String dalyCreate(DailyHabitCreatRequest request){
+    public String dalyCreate(DailyHabitCreatRequest request, String email){
         if(request.getHabitName().isBlank()){
             throw new BadRequestException("습관정보가 누락되었습니다.");
         }
@@ -38,8 +36,7 @@ public class CreateDailyHabit {
         }
 
         //======================================== 예외처리
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByEmail(authentication.getName()).orElseThrow(()->new NoContentsException("유저가 존재하지 않습니다."));
+        User user = userRepository.findByEmail(email).orElseThrow(()->new NoContentsException("유저가 존재하지 않습니다."));
 
         Habit habit = Habit.builder()
                 .name(request.getHabitName())

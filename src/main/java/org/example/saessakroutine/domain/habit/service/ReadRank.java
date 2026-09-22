@@ -12,8 +12,7 @@ import java.util.List;
 public class ReadRank {
     private final UserRepository userRepository;
     public List<GetRank> Ranking() {
-        List<GetRank> rank = userRepository.findAllByOrderByAllStreakAsc().stream().map(GetRank::new).toList();
-        return rank;
+        return userRepository.findTop20ByOrderByAllStreakDesc().stream().map(GetRank::new).toList();
         //20위까지 자르는 기준 설정해야한다.
     }
 }
