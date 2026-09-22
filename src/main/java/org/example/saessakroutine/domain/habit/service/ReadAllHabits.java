@@ -7,7 +7,6 @@ import org.example.saessakroutine.domain.entity.Habit;
 import org.example.saessakroutine.user.entity.User;
 import org.example.saessakroutine.user.repository.UserRepository;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,12 +24,4 @@ public class ReadAllHabits {
         List<Habit> allHabitResponserList = user.getHabit().stream().toList();
         return allHabitResponserList.stream().map(GetAllHabitsResponse::new).toList();
     }
-//    private final HabitRepository habitRepository;
-//    public List<GetAllHabitsResponse> ReadAll(){ //전체 습관 불러오는 Response로 반환 형식 선언
-//        List<Habit> allHabitsResponseList = habitRepository.findAll();
-//        if (allHabitsResponseList.isEmpty()){
-//            throw new NoContentsException("조회할 습관이 없습니다."); //사용자 지정 예외
-//        }
-//        return allHabitsResponseList.stream().map(GetAllHabitsResponse::new).toList();
-//    }
 }

@@ -53,8 +53,12 @@ public class User {
         this.password = password;
     }
 
-    public void updateAllStreak(int allStreak){
-        this.allStreak = allStreak;
+    public void updateAllStreak(boolean allStreakCount){
+        if(allStreakCount){
+            this.allStreak++;
+        } else {
+            this.allStreak = 0;
+        }
     }
 
     public void updateAllStreakCount(boolean allStreakCount){

@@ -23,8 +23,8 @@ public class WeekOfDayTime {
             weeklyHabit.getHabit().CompletedUpdate(false); //인증해야 하는 요일이 화요일일때 버튼 활성화
         }
         for(WeeklyHabit weeklyHabit : otherWeeklyHabit){
-            System.out.println("여기까진 OK");
-            weeklyHabit.getHabit().CompletedUpdate(true);
+//            System.out.println("여기까진 OK");
+            weeklyHabit.getHabit().CompletedUpdate(true); //인증하는 요일이 아닐때 true로 인증버튼 막기
         }
 
     }

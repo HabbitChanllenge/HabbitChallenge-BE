@@ -5,6 +5,7 @@ import org.example.saessakroutine.domain.habit.persistence.dto.request.HabitComp
 import org.example.saessakroutine.domain.habit.persistence.dto.request.HabitsPatchRequest;
 import org.example.saessakroutine.domain.habit.persistence.dto.request.WeeklyHabitCreatRequest;
 import org.example.saessakroutine.domain.habit.persistence.dto.response.GetAllHabitsResponse;
+import org.example.saessakroutine.domain.habit.persistence.dto.response.GetAllStreak;
 import org.example.saessakroutine.domain.habit.persistence.dto.status.StatusResponse;
 import org.example.saessakroutine.domain.habit.service.*;
 import org.springframework.http.HttpStatus;
@@ -12,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.Authenticator;
-import java.security.AuthProvider;
 import java.util.List;
 
 
@@ -27,6 +26,7 @@ public class Controller {
     private final CompleteHabit completeHabit;
     private final ReadAllHabits readAllHabits;
     private final HabitsPatch habitsPatch;
+    private final ReadAllStreak readAllStreak;
 
     @PostMapping("/habit/day")
     public ResponseEntity<StatusResponse> postDailyHabit(@RequestBody DailyHabitCreatRequest request){
@@ -61,7 +61,6 @@ public class Controller {
 
     @GetMapping("/habit")
     public List<GetAllHabitsResponse> getAllHabit (Authentication authentication){
-
         return readAllHabits.ReadAllHabit(authentication);
     } //여기에는 상태코드와함께 반환할 메시지가 필요없어서
 
@@ -72,4 +71,9 @@ public class Controller {
                 habitsPatch.Patch(id, request));
         return new ResponseEntity<>(statusResponse, HttpStatus.OK);
     }
+    @GetMapping("/streaks/allStreak")
+    public GetAllStreak allStreak (Authentication authentication){
+        return readAllStreak.AllStreak(authentication);
+    }
+    //랭킹 컨트롤러
 }

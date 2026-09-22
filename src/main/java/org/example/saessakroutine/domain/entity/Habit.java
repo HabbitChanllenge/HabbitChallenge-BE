@@ -97,11 +97,16 @@ public class Habit {
     @Transactional
     public void CompletedUpdate(Boolean completed){this.completed = completed;}
     @Transactional
-    public void HabitStreak(Boolean streak){
+    public void WeeklyHabitStreak(Boolean streak){
         if(streak){
             this.streak+=1; //일주일 기준 습관을 모두 인증하였으면 스트릭 +1
         } else {
             this.streak = 0; //아니라면 습관의 스트릭 초기화
+        }
+    }
+    public void ResetDayStreak(Boolean streak){
+        if(!streak){
+            this.streak = 0;
         }
     }
 }
