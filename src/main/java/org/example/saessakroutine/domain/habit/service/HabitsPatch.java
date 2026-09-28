@@ -19,7 +19,7 @@ public class HabitsPatch {
     private final DayRepository dayRepository;
     private final WeekRepository weekRepository;
 
-    public String Patch(Long id, HabitsPatchRequest request){
+    public int Patch(Long id, HabitsPatchRequest request){
         Habit habit = habitRepository.findById(id).orElseThrow(() -> new NotThingException("수정할 습관이 없습니다."));
 
 
@@ -34,7 +34,7 @@ public class HabitsPatch {
 
         if(request.getName() != null){
             if(request.getName().isBlank()){
-                throw new BadRequestException("습관의 정보가 누락되었습니다.");
+                throw new BadRequestException();
             }
             habit.UpdateHabits_name(request.getName());
             habitRepository.save(habit);
@@ -45,7 +45,7 @@ public class HabitsPatch {
         if(request.getTotalRepeat() != null){
             DailyHabit dailyHabit = dayRepository.findById(id).orElseThrow(()->new NotThingException("수정할 습관이 없습니다.(Daily)"));
             if(request.getTotalRepeat() == 0){
-                throw new BadRequestException("습관의 정보가 누락되었습니다.");
+                throw new BadRequestException();
             }
             habit.CompleteUpdateDay(0, habit.isCompleted());
             //습관을 완료한 경우라면 습관 인증 페이지가 열리지 않으므로 다음날부터 수정된 횟수로 할 수 있게 하기 위해 완료한 습관이라면 true가 들어가게 되고,
@@ -62,8 +62,8 @@ public class HabitsPatch {
             weeklyHabit.HabitUpdate_Week(request.getWeekOfDay(), true); //여기서 true가 된다면, 월요일 0시가 되었을 때 바꾼다.
             weekRepository.save(weeklyHabit);
         } else if(habit.getPeriodType().equals("WEEKLY")){
-            throw new BadRequestException("습관의 정보가 누락되었습니다.");
+            throw new BadRequestException();
         }
-        return "습관이 성공적으로 수정되었습니다.";
+        return 200;
     }
 }

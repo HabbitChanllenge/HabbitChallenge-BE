@@ -21,22 +21,22 @@ public class CreateDailyHabit {
     private final UserRepository userRepository;
 
     @Transactional
-    public String dalyCreate(DailyHabitCreatRequest request, String email){
+    public int dalyCreate(DailyHabitCreatRequest request, String email){
         if(request.getHabitName().isBlank()){
-            throw new BadRequestException("습관정보가 누락되었습니다.");
+            throw new BadRequestException();
         }
         for(int i=0; i< request.getCategory().size(); i++){
             if(request.getCategory().get(i).isBlank()){
-                throw new BadRequestException("습관정보가 누락되었습니다.");
+                throw new BadRequestException();
             }
         }
         //========================================예외처리
         if (request.getTotalRepeat() == 0){
-            throw new BadRequestException("습관정보가 누락되었습니다.");
+            throw new BadRequestException();
         }
 
         //======================================== 예외처리
-        User user = userRepository.findByEmail(email).orElseThrow(()->new NoContentsException("유저가 존재하지 않습니다."));
+        User user = userRepository.findByEmail(email).orElseThrow(NoContentsException::new);
 
         Habit habit = Habit.builder()
                 .name(request.getHabitName())
@@ -55,6 +55,6 @@ public class CreateDailyHabit {
         dayRepository.save(dalyHabit);
 
 
-        return "습관이 성공적으로 생성되었습니다.";
+        return 201;
     }
 }
