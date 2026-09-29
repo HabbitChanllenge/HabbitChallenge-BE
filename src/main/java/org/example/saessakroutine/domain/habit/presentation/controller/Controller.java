@@ -31,7 +31,7 @@ public class Controller {
     private final ReadAllStreak readAllStreak;
     private final ReadRank readRank;
 
-    @PostMapping("/habit/day")
+    @PostMapping("/habits/day")
     public ResponseEntity<StatusResponse> postDailyHabit(@RequestBody DailyHabitCreatRequest request, @AuthenticationPrincipal String email){
         StatusResponse statusResponse = new StatusResponse(
                 "OK",
@@ -39,7 +39,7 @@ public class Controller {
         return new ResponseEntity<>(statusResponse, HttpStatus.CREATED);
     }
 
-    @PostMapping("/habit/week")
+    @PostMapping("/habits/week")
     public ResponseEntity<StatusResponse> postWeeklyHabit(@RequestBody WeeklyHabitCreatRequest request){
         StatusResponse statusResponse = new StatusResponse(
                 "OK",
@@ -47,14 +47,14 @@ public class Controller {
         return new ResponseEntity<>(statusResponse, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/habit/{id}")
+    @DeleteMapping("/habits/{id}")
     public ResponseEntity<StatusResponse> deleteHabit(@PathVariable Long id){
         //@PathVariabl은 경로에서 받은 Id값을 받아오는 어노테이션
         StatusResponse statusResponse = new StatusResponse("OK", deleteHabits.Delete(id));
         return new ResponseEntity<>(statusResponse, HttpStatus.OK);
     }
 
-    @PatchMapping("/habit/{id}")
+    @PatchMapping("/habits/{id}")
     public ResponseEntity<StatusResponse> completeHabit(@PathVariable Long id, @RequestBody HabitCompleteRequest request){
         StatusResponse statusResponse = new StatusResponse(
                 "OK",
@@ -62,12 +62,12 @@ public class Controller {
         return new ResponseEntity<>(statusResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/habit")
+    @GetMapping("/habits")
     public List<GetAllHabitsResponse> getAllHabit (Authentication authentication){
         return readAllHabits.ReadAllHabit(authentication);
     } //여기에는 상태코드와함께 반환할 메시지가 필요없어서
 
-    @PatchMapping("/habit/update/{id}")
+    @PatchMapping("/habits/update/{id}")
     public ResponseEntity<StatusResponse> patchHabits (@PathVariable Long id, @RequestBody HabitsPatchRequest request){
         StatusResponse statusResponse = new StatusResponse(
                 "OK",

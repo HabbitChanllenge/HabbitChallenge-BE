@@ -9,8 +9,12 @@ import org.example.saessakroutine.user.entity.User;
 public class GetRank {
     private int allStreak;
     private String userName;
+    private int rank;
     public GetRank(User user){
         this.allStreak = user.getAllStreak();
         this.userName = user.getUserId();
+    }
+    public void AddRank(int rank){
+        this.rank = rank;
     }
 }

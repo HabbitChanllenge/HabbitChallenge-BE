@@ -28,19 +28,19 @@ public class CreateWeeklyHabit {
     int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
     @Transactional
-    public String weeklyCreate(WeeklyHabitCreatRequest request){
+    public int weeklyCreate(WeeklyHabitCreatRequest request){
         if(request.getHabitName().isBlank()){
-            throw new BadRequestException("습관정보가 누락되었습니다.");
+            throw new BadRequestException();
         }
         for(int i=0; i< request.getCategory().size(); i++){
             if(request.getCategory().get(i).isBlank()){
-                throw new BadRequestException("습관정보가 누락되었습니다.");
+                throw new BadRequestException();
             }
         }
         //=================================위에는 예외처리
         //=================================밑에는 습관 생성코드
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByEmail(authentication.getName()).orElseThrow(()->new NoContentsException("유저가 존재하지 않습니다."));
+        User user = userRepository.findByEmail(authentication.getName()).orElseThrow(NoContentsException::new);
 
         Habit habit = Habit.builder()
                 .name(request.getHabitName())
@@ -67,6 +67,6 @@ public class CreateWeeklyHabit {
         weekRepository.save(weeklyHabit);
 
 
-        return "습관이 성공적으로 생성되었습니다.";
+        return 201;
     }
 }

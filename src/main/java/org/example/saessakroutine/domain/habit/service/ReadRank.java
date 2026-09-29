@@ -12,7 +12,10 @@ import java.util.List;
 public class ReadRank {
     private final UserRepository userRepository;
     public List<GetRank> Ranking() {
-        return userRepository.findTop20ByOrderByAllStreakDesc().stream().map(GetRank::new).toList();
-        //20위까지 자르는 기준 설정해야한다.
+        List<GetRank> getRank = userRepository.findTop20ByOrderByAllStreakDesc().stream().map(GetRank::new).toList();
+        for (int i=0; i < getRank.size(); i++){
+            getRank.get(i).AddRank(i+1);
+        }
+        return getRank;
     }
 }

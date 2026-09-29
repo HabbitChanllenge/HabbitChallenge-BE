@@ -20,7 +20,7 @@ public class CompleteHabit {
     private final UserRepository userRepository;
     private final WeekStreak weekStreak;
 
-    public String Complete(Long id, HabitCompleteRequest request){
+    public int Complete(Long id, HabitCompleteRequest request){
         Habit habit = habitRepository.findById(id).orElseThrow(() -> new NotThingException("인증할 습관이 없습니다."));
         if(habit.getPeriodType().equals("WEEKLY")){
             if(request.getCompletedCount() == 1){
@@ -32,7 +32,7 @@ public class CompleteHabit {
                 weekStreak.CountWeek(id, habit.isCompleted(), false); //일주일 습관 인증 스트릭 계산을 위해서
                 habit.CompleteUpdateWeek(request.getCompletedCount(), false);
             } else {
-                throw new BadRequestException("인증요청이 올바르지 않습니다.");
+                throw new BadRequestException();
             }
         } else {
             DailyHabit dailyHabit = dayRepository.findById(id).orElseThrow(()->new IllegalArgumentException("하루기준 습관이 생성되어있지 않습니다."));
@@ -42,7 +42,7 @@ public class CompleteHabit {
                 habit.getUser().updateCompletedHabits(true);//인증한 습관개수 갱신
 
             } else if(request.getCompletedCount() > dailyHabit.getTotalRepeat()){
-                throw new BadRequestException("인증요청이 올바르지 않습니다.");
+                throw new BadRequestException();
             } else {
                 habit.CompleteUpdateDay(request.getCompletedCount(), false);
             }
@@ -53,6 +53,6 @@ public class CompleteHabit {
             habit.getUser().updateAllStreak(true);
             userRepository.save(habit.getUser());
         }
-        return "습관 인증 정보가 수정되었습니다.";
+        return 200;
     }
 }
