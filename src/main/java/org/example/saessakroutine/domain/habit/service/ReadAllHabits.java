@@ -19,7 +19,7 @@ public class ReadAllHabits {
     private final UserRepository userRepository;
     @Transactional
     public List<GetAllHabitsResponse> ReadAllHabit(Authentication authentication){
-        User user = userRepository.findByEmail(authentication.getName()).orElseThrow(()->new NoContentsException("유저가 존재하지 않습니다."));
+        User user = userRepository.findByEmail(authentication.getName()).orElseThrow(NoContentsException::new);
 
         List<Habit> allHabitResponserList = user.getHabit().stream().toList();
         return allHabitResponserList.stream().map(GetAllHabitsResponse::new).toList();

@@ -52,7 +52,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getMyPage(email));
     }
 
-    @PatchMapping("/user/me")
+    @PatchMapping("/user/me")                                                                                       
     public ResponseEntity<Map<String, Object>> updateMyPage(@AuthenticationPrincipal String email, @Valid @RequestBody UpdateMyPageRequest request) {
         String accessToken = userService.updateMyPage(email, request);
 
