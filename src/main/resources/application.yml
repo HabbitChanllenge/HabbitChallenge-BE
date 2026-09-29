@@ -9,8 +9,8 @@ spring:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 
   datasource:
-    url: jdbc:mysql://localhost:3306/habit_project?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
