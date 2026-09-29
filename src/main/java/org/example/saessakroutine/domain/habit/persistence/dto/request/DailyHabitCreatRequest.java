@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class DailyHabitCreatRequest {
-    private String habitName;
+    private String name;
     private String periodType;
     private List<String> category = new ArrayList<>();
     private int totalRepeat;
