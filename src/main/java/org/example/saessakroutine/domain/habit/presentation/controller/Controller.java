@@ -19,7 +19,6 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping
 @RequiredArgsConstructor //필수 인자를 가진 생성자를 자동으로 생성 (이게 있기 때문에 밑에 서비스 클래스들을 불러올 수 있는 것.
 public class Controller {
     private final CreateDailyHabit createDailyHabit;
