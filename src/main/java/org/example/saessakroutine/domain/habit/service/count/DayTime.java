@@ -21,11 +21,9 @@ public class DayTime {
     private final WeekRepository weekRepository;
     private final WhatDayOfWeek weekOfDay;
 
-    @Scheduled(cron = "0 * * * * *")
     @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     public void NewDay(){
-        System.out.println("오류 없음!!");
         //======================================================================
         List<User> users = userRepository.findAll().stream().toList();
         for(User user : users){
