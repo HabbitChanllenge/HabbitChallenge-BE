@@ -22,7 +22,7 @@ public class CreateDailyHabit {
 
     @Transactional
     public int dalyCreate(DailyHabitCreatRequest request, String email){
-        if(request.getHabitName().isBlank()){
+        if(request.getName().isBlank()){
             throw new BadRequestException();
         }
         for(int i=0; i< request.getCategory().size(); i++){
@@ -39,7 +39,7 @@ public class CreateDailyHabit {
         User user = userRepository.findByEmail(email).orElseThrow(NoContentsException::new);
 
         Habit habit = Habit.builder()
-                .name(request.getHabitName())
+                .name(request.getName())
                 .periodType(request.getPeriodType())
                 .category(request.getCategory())
                 .user(user)
