@@ -14,8 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.net.Authenticator;
-
 @Service
 @RequiredArgsConstructor //final인 속성에 전부 생성자를 생성해준다.
 public class CreateDailyHabit {
