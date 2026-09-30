@@ -12,7 +12,6 @@ import org.example.saessakroutine.domain.habit.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,10 +30,10 @@ public class Controller {
     private final ReadRank readRank;
 
     @PostMapping("/habits/day")
-    public ResponseEntity<StatusResponse> postDailyHabit(@RequestBody DailyHabitCreatRequest request, @AuthenticationPrincipal String email){
+    public ResponseEntity<StatusResponse> postDailyHabit(@RequestBody DailyHabitCreatRequest request, Authentication authentication){
         StatusResponse statusResponse = new StatusResponse(
                 "OK",
-                createDailyHabit.dalyCreate(request, email));
+                createDailyHabit.dalyCreate(request, authentication));
         return new ResponseEntity<>(statusResponse, HttpStatus.CREATED);
     }
 

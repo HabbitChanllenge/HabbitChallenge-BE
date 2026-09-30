@@ -49,8 +49,10 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) {
         try {
             getEmail(token);
+            System.out.println("이메일도 정상");
             return true;
         } catch (JwtException | IllegalArgumentException exception) {
+            System.out.println("어림도 없지!");
             return false;
         }
     }

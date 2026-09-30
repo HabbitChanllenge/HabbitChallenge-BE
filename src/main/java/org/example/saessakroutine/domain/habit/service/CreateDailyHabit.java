@@ -10,8 +10,11 @@ import org.example.saessakroutine.domain.repository.DayRepository;
 import org.example.saessakroutine.domain.repository.HabitRepository;
 import org.example.saessakroutine.user.entity.User;
 import org.example.saessakroutine.user.repository.UserRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.net.Authenticator;
 
 @Service
 @RequiredArgsConstructor //final인 속성에 전부 생성자를 생성해준다.
@@ -21,7 +24,7 @@ public class CreateDailyHabit {
     private final UserRepository userRepository;
 
     @Transactional
-    public int dalyCreate(DailyHabitCreatRequest request, String email){
+    public int dalyCreate(DailyHabitCreatRequest request, Authentication authentication){
         if(request.getName().isBlank()){
             throw new BadRequestException();
         }
@@ -36,7 +39,8 @@ public class CreateDailyHabit {
         }
 
         //======================================== 예외처리
-        User user = userRepository.findByEmail(email).orElseThrow(NoContentsException::new);
+
+        User user = userRepository.findByEmail(authentication.getName()).orElseThrow(NoContentsException::new);
 
         Habit habit = Habit.builder()
                 .name(request.getName())

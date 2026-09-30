@@ -32,6 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = resolveToken(request);
 
         if (token != null && jwtTokenProvider.validateToken(token) && SecurityContextHolder.getContext().getAuthentication() == null) {
+            System.out.println("토큰은 비어있지 않습니다.");
 
             String email = jwtTokenProvider.getEmail(token);
 
@@ -55,6 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String bearerToken = request.getHeader("Authorization");
 
         if (bearerToken != null && bearerToken.startsWith("Bearer ")){
+            System.out.println("bearerToken은 null이 아닙니다.");
             return bearerToken.substring(7);
         }
 
