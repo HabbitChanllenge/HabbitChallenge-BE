@@ -1,8 +1,11 @@
 package org.example.saessakroutine.user.exception;
 
-public class UserAlreadyExistsException extends RuntimeException {
+import org.example.saessakroutine.global.exception.BusinessException;
+import org.example.saessakroutine.global.exception.ErrorCode;
+
+public class UserAlreadyExistsException extends BusinessException {
 
     public UserAlreadyExistsException() {
-        super("이미 가입된 이메일입니다.");
+        super(ErrorCode.USER_ALREADY_EXISTS);
     }
 }

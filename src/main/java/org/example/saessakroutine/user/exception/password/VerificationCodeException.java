@@ -1,8 +1,11 @@
 package org.example.saessakroutine.user.exception.password;
 
-public class VerificationCodeException extends RuntimeException {
+import org.example.saessakroutine.global.exception.BusinessException;
+import org.example.saessakroutine.global.exception.ErrorCode;
 
-    public VerificationCodeException(String message) {
-        super(message);
+public class VerificationCodeException extends BusinessException {
+
+    public VerificationCodeException(ErrorCode errorCode) {
+        super(errorCode);
     }
 }
