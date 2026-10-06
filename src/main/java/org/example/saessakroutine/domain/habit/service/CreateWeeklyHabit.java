@@ -11,7 +11,6 @@ import org.example.saessakroutine.domain.repository.WeekRepository;
 import org.example.saessakroutine.user.entity.User;
 import org.example.saessakroutine.user.repository.UserRepository;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,24 +27,23 @@ public class CreateWeeklyHabit {
     int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
     @Transactional
-    public int weeklyCreate(WeeklyHabitCreatRequest request){
-        if(request.getHabitName().isBlank()){
+    public int weeklyCreate(WeeklyHabitCreatRequest request, Authentication authentication){
+        if(request.getName().isEmpty()||request.getName().isBlank()){
             throw new BadRequestException();
         }
-        for(int i=0; i< request.getCategory().size(); i++){
-            if(request.getCategory().get(i).isBlank()){
+        for(int i=0; i< request.getCategorys().size(); i++){
+            if(request.getCategorys().get(i).isBlank()){
                 throw new BadRequestException();
             }
         }
         //=================================위에는 예외처리
         //=================================밑에는 습관 생성코드
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(authentication.getName()).orElseThrow(NoContentsException::new);
 
         Habit habit = Habit.builder()
-                .name(request.getHabitName())
+                .name(request.getName())
                 .periodType(request.getPeriodType())
-                .category(request.getCategory())
+                .category(request.getCategorys())
                 .user(user)
                 .completed(true) //일단 생성 할때는 버튼을 막아 두었다가 밑에서 for문으로 해당하는 오늘이 해당하는 요일인지 판단하고 false로 바꾸어 버튼을 활성화 시킨다.
                 .build();

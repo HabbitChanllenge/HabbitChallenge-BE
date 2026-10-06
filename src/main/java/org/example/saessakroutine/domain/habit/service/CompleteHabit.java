@@ -22,7 +22,7 @@ public class CompleteHabit {
 
     public int Complete(Long id, HabitCompleteRequest request){
         Habit habit = habitRepository.findById(id).orElseThrow(() -> new NotThingException("인증할 습관이 없습니다."));
-        if(habit.getPeriodType().equals("WEEKLY")){
+        if(habit.getPeriodType().equals("week")){
             if(request.getCompletedCount() == 1){
                 weekStreak.CountWeek(id, habit.isCompleted(), true); //일주일 습관 인증 스트릭 계산을 위해서
                 habit.CompleteUpdateWeek(request.getCompletedCount(), true);

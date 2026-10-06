@@ -38,10 +38,10 @@ public class Controller {
     }
 
     @PostMapping("/habits/week")
-    public ResponseEntity<StatusResponse> postWeeklyHabit(@RequestBody WeeklyHabitCreatRequest request){
+    public ResponseEntity<StatusResponse> postWeeklyHabit(@RequestBody WeeklyHabitCreatRequest request, Authentication authentication){
         StatusResponse statusResponse = new StatusResponse(
                 "OK",
-                createWeeklyHabit.weeklyCreate(request));
+                createWeeklyHabit.weeklyCreate(request, authentication));
         return new ResponseEntity<>(statusResponse, HttpStatus.CREATED);
     }
 

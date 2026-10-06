@@ -30,7 +30,7 @@ public class GetAllHabitsResponse {
         this.completedCount = habit.getCompletedCount();
         this.streak = habit.getStreak();
         this.categorys = habit.getCategory();
-        if (habit.getPeriodType().equals("DAILY")){ //DailyHabit에 접근할지, WeeklyHabit에 접근할지 판단하는 부분
+        if (habit.getPeriodType().equals("day")){ //DailyHabit에 접근할지, WeeklyHabit에 접근할지 판단하는 부분
             this.totalRepeat = habit.getDailyHabit().getTotalRepeat();
         } else {
             this.weekOfDay = habit.getWeeklyHabit().getWeekOfDay();

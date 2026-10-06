@@ -61,7 +61,7 @@ public class HabitsPatch {
             WeeklyHabit weeklyHabit = weekRepository.findById(id).orElseThrow(()->new NotThingException("수정할 습관이 업습니다.(Weekly)"));
             weeklyHabit.HabitUpdate_Week(request.getWeekOfDay(), true); //여기서 true가 된다면, 월요일 0시가 되었을 때 바꾼다.
             weekRepository.save(weeklyHabit);
-        } else if(habit.getPeriodType().equals("WEEKLY")){
+        } else if(habit.getPeriodType().equals("week")){
             throw new BadRequestException();
         }
         return 200;
