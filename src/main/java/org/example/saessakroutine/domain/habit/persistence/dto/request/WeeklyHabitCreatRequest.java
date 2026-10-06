@@ -8,8 +8,8 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class WeeklyHabitCreatRequest {
-    private String habitName;
+    private String name;
     private String periodType;
-    private List<String> categorys = new ArrayList<>();
-    private List<Integer> weekOfDay = new ArrayList<>();
+    private List<String> categories = new ArrayList<>();
+    private List<Integer> dayOfWeek = new ArrayList<>();
 }

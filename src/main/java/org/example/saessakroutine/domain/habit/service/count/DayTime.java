@@ -19,7 +19,7 @@ public class DayTime {
     private final DayRepository dayRepository;
     private final UserRepository userRepository;
     private final WeekRepository weekRepository;
-    private final WhatDayOfWeek weekOfDay;
+    private final WhatDayOfWeek dayOfWeek;
 
     @Scheduled(cron = "0 0 0 * * *")
     @Transactional
@@ -48,7 +48,7 @@ public class DayTime {
             }
         }
         //======================================================================일주일 요일판단
-        weekOfDay.WhatDay();
+        dayOfWeek.WhatDay();
         //========================================================================인증한 습관 개수 초기화
     }
 }

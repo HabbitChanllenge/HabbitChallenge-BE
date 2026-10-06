@@ -75,7 +75,6 @@ public class Habit {
         } else { //이미 참인데도 여러번 인증해서 스트릭이 여러번 늘어날 수 있으므로
             if(completed){
                 ++streak;
-                System.out.println("complete에서 스트릭 증가!");
             }
         }
 

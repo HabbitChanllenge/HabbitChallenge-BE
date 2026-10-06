@@ -9,17 +9,16 @@ import java.util.Calendar;
 @RequiredArgsConstructor
 public class WhatDayOfWeek {
     Calendar calendar = Calendar.getInstance();
-    int weekOfDay = calendar.get(Calendar.DAY_OF_WEEK);
-//    int weekOfDay = 3; //테스트용 코드
+    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
     private final WeekTime weekTime;
     private final DayOfWeekTime dayOfWeekTime;
 
     public void WhatDay(){
-        if(weekOfDay == 2){
+        if(dayOfWeek == 2){
             weekTime.NewWeek();
         } else {
-            dayOfWeekTime.DayOfWeeks(weekOfDay);
+            dayOfWeekTime.DayOfWeeks(dayOfWeek);
         }
     }
 }

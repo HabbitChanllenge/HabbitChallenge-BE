@@ -16,8 +16,8 @@ public class DayOfWeekTime {
 
     @Transactional
     public void DayOfWeeks(int dayOfWeek){
-        List<WeeklyHabit> weeklyHabits = weekRepository.findAll().stream().filter(weeklyHabit1 -> weeklyHabit1.getWeekOfDay().contains(dayOfWeek)).toList();
-        List<WeeklyHabit> otherWeeklyHabit = weekRepository.findAll().stream().filter(weeklyHabit1 -> !weeklyHabit1.getWeekOfDay().contains(dayOfWeek)).toList();
+        List<WeeklyHabit> weeklyHabits = weekRepository.findAll().stream().filter(weeklyHabit1 -> weeklyHabit1.getDayOfWeek().contains(dayOfWeek)).toList();
+        List<WeeklyHabit> otherWeeklyHabit = weekRepository.findAll().stream().filter(weeklyHabit1 -> !weeklyHabit1.getDayOfWeek().contains(dayOfWeek)).toList();
 
         for(WeeklyHabit weeklyHabit : weeklyHabits){
             weeklyHabit.getHabit().CompletedUpdate(false); //인증해야 하는 요일이 화요일일때 버튼 활성화

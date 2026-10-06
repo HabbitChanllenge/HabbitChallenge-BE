@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class HabitsPatchRequest {
     private String name;
-    private List<String> categorys = new ArrayList<>();
+    private List<String> categories = new ArrayList<>();
     private Integer totalRepeat;
-    private List<Integer> WeekOfDay = new ArrayList<>();
+    private List<Integer> DayOfWeek = new ArrayList<>();
 }

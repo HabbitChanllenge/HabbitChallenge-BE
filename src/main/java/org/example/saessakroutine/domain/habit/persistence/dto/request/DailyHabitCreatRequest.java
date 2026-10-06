@@ -11,6 +11,6 @@ import java.util.List;
 public class DailyHabitCreatRequest {
     private String name;
     private String periodType;
-    private List<String> categorys = new ArrayList<>();
+    private List<String> categories = new ArrayList<>();
     private int totalRepeat;
 }
