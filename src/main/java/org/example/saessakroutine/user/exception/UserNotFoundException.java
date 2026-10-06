@@ -1,8 +1,11 @@
 package org.example.saessakroutine.user.exception;
 
-public class UserNotFoundException extends RuntimeException{
+import org.example.saessakroutine.global.exception.BusinessException;
+import org.example.saessakroutine.global.exception.ErrorCode;
+
+public class UserNotFoundException extends BusinessException {
 
     public UserNotFoundException(){
-        super("사용자를 찾을 수 없습니다.");
+        super(ErrorCode.USER_NOT_FOUND);
     }
 }

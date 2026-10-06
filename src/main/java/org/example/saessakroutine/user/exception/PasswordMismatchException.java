@@ -1,8 +1,11 @@
 package org.example.saessakroutine.user.exception;
 
-public class PasswordMismatchException extends RuntimeException {
+import org.example.saessakroutine.global.exception.BusinessException;
+import org.example.saessakroutine.global.exception.ErrorCode;
+
+public class PasswordMismatchException extends BusinessException {
 
     public PasswordMismatchException() {
-        super("비밀번호를 다시 확인해주세요.");
+        super(ErrorCode.PASSWORD_MISMATCH);
     }
 }

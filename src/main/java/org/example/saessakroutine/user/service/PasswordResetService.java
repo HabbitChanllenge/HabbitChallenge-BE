@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
+import org.example.saessakroutine.global.exception.ErrorCode;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -54,14 +56,14 @@ public class PasswordResetService {
     public void verifyCode(VerifyCodeRequest request) {
         PasswordResetCode passwordResetCode =
                 passwordResetCodeRepository.findByEmail(request.email())
-                        .orElseThrow(() -> new VerificationCodeException("인증번호를 먼저 발송해주세요."));
+                        .orElseThrow(() -> new VerificationCodeException(ErrorCode.VERIFICATION_CODE_NOT_SENT));
 
         if (passwordResetCode.isExpired()) {
-            throw new VerificationCodeException("인증번호가 만료되었습니다.");
+            throw new VerificationCodeException(ErrorCode.VERIFICATION_CODE_EXPIRED);
         }
 
         if (!passwordResetCode.getCode().equals(request.code())) {
-            throw new VerificationCodeException("인증번호가 일치하지 않습니다.");
+            throw new VerificationCodeException(ErrorCode.VERIFICATION_CODE_MISMATCH);
         }
 
         passwordResetCode.markVerified();
@@ -72,14 +74,14 @@ public class PasswordResetService {
                 .orElseThrow(UserNotFoundException::new);
 
         PasswordResetCode passwordResetCode = passwordResetCodeRepository.findByEmail(request.email())
-                .orElseThrow(() -> new VerificationCodeException("이메일 인증을 먼저 완료해주세요."));
+                .orElseThrow(() -> new VerificationCodeException(ErrorCode.EMAIL_NOT_VERIFIED));
 
         if (passwordResetCode.isExpired()) {
-            throw new VerificationCodeException("인증번호가 만료되었습니다.");
+            throw new VerificationCodeException(ErrorCode.VERIFICATION_CODE_EXPIRED);
         }
 
         if (!passwordResetCode.isVerified()) {
-            throw new VerificationCodeException("이메일 인증을 먼저 완료해주세요.");
+            throw new VerificationCodeException(ErrorCode.EMAIL_NOT_VERIFIED);
         }
 
         user.updatePassword(passwordEncoder.encode(request.newPassword()));
