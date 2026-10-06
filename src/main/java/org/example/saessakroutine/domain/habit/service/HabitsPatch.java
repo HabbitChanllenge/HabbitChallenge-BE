@@ -25,8 +25,8 @@ public class HabitsPatch {
 
         //============================================================== 습관 카테고리 수정 (Habit)
 
-        if(request.getCategorys() != null){
-            habit.UpdateHabits_category(request.getCategorys());
+        if(request.getCategories() != null){
+            habit.UpdateHabits_category(request.getCategories());
             habitRepository.save(habit);
         }
 
@@ -57,9 +57,9 @@ public class HabitsPatch {
 
         //=============================================================== 습관 달성 요일 수정 (Weekly)
 
-        if(request.getWeekOfDay() != null){
+        if(request.getDayOfWeek() != null){
             WeeklyHabit weeklyHabit = weekRepository.findById(id).orElseThrow(()->new NotThingException("수정할 습관이 업습니다.(Weekly)"));
-            weeklyHabit.HabitUpdate_Week(request.getWeekOfDay(), true); //여기서 true가 된다면, 월요일 0시가 되었을 때 바꾼다.
+            weeklyHabit.HabitUpdate_Week(request.getDayOfWeek(), true); //여기서 true가 된다면, 월요일 0시가 되었을 때 바꾼다.
             weekRepository.save(weeklyHabit);
         } else if(habit.getPeriodType().equals("week")){
             throw new BadRequestException();
