@@ -32,8 +32,8 @@ public class CreateWeeklyHabit {
         if(request.getHabitName().isBlank()){
             throw new BadRequestException();
         }
-        for(int i=0; i< request.getCategory().size(); i++){
-            if(request.getCategory().get(i).isBlank()){
+        for(int i=0; i< request.getCategorys().size(); i++){
+            if(request.getCategorys().get(i).isBlank()){
                 throw new BadRequestException();
             }
         }
@@ -45,7 +45,7 @@ public class CreateWeeklyHabit {
         Habit habit = Habit.builder()
                 .name(request.getHabitName())
                 .periodType(request.getPeriodType())
-                .category(request.getCategory())
+                .category(request.getCategorys())
                 .user(user)
                 .completed(true) //일단 생성 할때는 버튼을 막아 두었다가 밑에서 for문으로 해당하는 오늘이 해당하는 요일인지 판단하고 false로 바꾸어 버튼을 활성화 시킨다.
                 .build();
