@@ -34,6 +34,7 @@ public class Controller {
         StatusResponse statusResponse = new StatusResponse(
                 "OK",
                 createDailyHabit.dalyCreate(request, authentication));
+        System.out.println("하루 기준 습관 생성 완료");
         return new ResponseEntity<>(statusResponse, HttpStatus.CREATED);
     }
 
@@ -42,6 +43,7 @@ public class Controller {
         StatusResponse statusResponse = new StatusResponse(
                 "OK",
                 createWeeklyHabit.weeklyCreate(request, authentication));
+        System.out.println("일주일 기준 습관 생성 완료");
         return new ResponseEntity<>(statusResponse, HttpStatus.CREATED);
     }
 
@@ -49,8 +51,10 @@ public class Controller {
     public ResponseEntity<StatusResponse> deleteHabit(@PathVariable Long id){
         //@PathVariabl은 경로에서 받은 Id값을 받아오는 어노테이션
         StatusResponse statusResponse = new StatusResponse("OK", deleteHabits.Delete(id));
+        System.out.println("습관 삭제 완료");
         return new ResponseEntity<>(statusResponse, HttpStatus.OK);
     }
+
 
     @PatchMapping("/habits/{id}")
     public ResponseEntity<StatusResponse> completeHabit(@PathVariable Long id, @RequestBody HabitCompleteRequest request){
