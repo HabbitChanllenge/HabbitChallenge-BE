@@ -59,7 +59,6 @@ public class CreateWeeklyHabit {
         for(int i = 0; i < weeklyHabit.getDayOfWeek().size(); i++){
             if(weeklyHabit.getDayOfWeek().get(i).equals(dayOfWeek)){
                 weeklyHabit.getHabit().CompletedUpdate(false); //생성한 습관이 생성한 날의 요일이라면 인증 활성화 아니라면 true로 막아두기
-                System.out.println(dayOfWeek);
             }
         }
         weekRepository.save(weeklyHabit);

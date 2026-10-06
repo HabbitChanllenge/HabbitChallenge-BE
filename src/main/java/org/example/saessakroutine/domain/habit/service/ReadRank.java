@@ -14,7 +14,6 @@ public class ReadRank {
     private final UserRepository userRepository;
     public List<GetRankResponse> Ranking() {
         List<GetRankResponse> getRankResponse = userRepository.findTop20ByOrderByAllStreakDesc().stream().map(GetRankResponse::new).toList();
-        System.out.println("ReadRank실행");
         if (getRankResponse.isEmpty()){ //비어있는지 검사?
             throw new NoContentsException();
         } else {
