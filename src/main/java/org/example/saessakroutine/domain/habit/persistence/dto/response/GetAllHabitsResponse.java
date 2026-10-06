@@ -18,7 +18,7 @@ public class GetAllHabitsResponse {
     private int streak;
     private int completedCount;
     private String periodType;
-    private List<String> category = new ArrayList<>();
+    private List<String> categorys = new ArrayList<>();
     private List<Integer> weekOfDay = new ArrayList<>();
     private int totalRepeat;
 
@@ -29,7 +29,7 @@ public class GetAllHabitsResponse {
         this.completed = habit.isCompleted();
         this.completedCount = habit.getCompletedCount();
         this.streak = habit.getStreak();
-        this.category = habit.getCategory();
+        this.categorys = habit.getCategory();
         if (habit.getPeriodType().equals("DAILY")){ //DailyHabit에 접근할지, WeeklyHabit에 접근할지 판단하는 부분
             this.totalRepeat = habit.getDailyHabit().getTotalRepeat();
         } else {

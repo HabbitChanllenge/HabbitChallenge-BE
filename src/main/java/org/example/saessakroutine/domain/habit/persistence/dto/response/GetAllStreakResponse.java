@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class GetAllStreak {
+public class GetAllStreakResponse {
     private int allStreak;
-    public GetAllStreak(int allStreak){
+    public GetAllStreakResponse(int allStreak){
         this.allStreak = allStreak;
     }
 }

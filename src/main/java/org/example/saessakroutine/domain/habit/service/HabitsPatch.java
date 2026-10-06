@@ -25,8 +25,8 @@ public class HabitsPatch {
 
         //============================================================== 습관 카테고리 수정 (Habit)
 
-        if(request.getCategory() != null){
-            habit.UpdateHabits_category(request.getCategory());
+        if(request.getCategorys() != null){
+            habit.UpdateHabits_category(request.getCategorys());
             habitRepository.save(habit);
         }
 

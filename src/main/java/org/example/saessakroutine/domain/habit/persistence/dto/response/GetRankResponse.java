@@ -6,11 +6,11 @@ import org.example.saessakroutine.user.entity.User;
 
 @NoArgsConstructor
 @Getter
-public class GetRank {
+public class GetRankResponse {
     private int allStreak;
     private String userName;
     private int rank;
-    public GetRank(User user){
+    public GetRankResponse(User user){
         this.allStreak = user.getAllStreak();
         this.userName = user.getUserId();
     }

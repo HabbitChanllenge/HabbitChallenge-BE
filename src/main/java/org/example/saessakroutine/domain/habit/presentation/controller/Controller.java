@@ -5,8 +5,8 @@ import org.example.saessakroutine.domain.habit.persistence.dto.request.HabitComp
 import org.example.saessakroutine.domain.habit.persistence.dto.request.HabitsPatchRequest;
 import org.example.saessakroutine.domain.habit.persistence.dto.request.WeeklyHabitCreatRequest;
 import org.example.saessakroutine.domain.habit.persistence.dto.response.GetAllHabitsResponse;
-import org.example.saessakroutine.domain.habit.persistence.dto.response.GetAllStreak;
-import org.example.saessakroutine.domain.habit.persistence.dto.response.GetRank;
+import org.example.saessakroutine.domain.habit.persistence.dto.response.GetAllStreakResponse;
+import org.example.saessakroutine.domain.habit.persistence.dto.response.GetRankResponse;
 import org.example.saessakroutine.domain.habit.persistence.dto.status.StatusResponse;
 import org.example.saessakroutine.domain.habit.service.*;
 import org.springframework.http.HttpStatus;
@@ -73,12 +73,12 @@ public class Controller {
         return new ResponseEntity<>(statusResponse, HttpStatus.OK);
     }
     @GetMapping("/streaks/allStreak")
-    public GetAllStreak allStreak (Authentication authentication){
+    public GetAllStreakResponse allStreak (Authentication authentication){
         return readAllStreak.AllStreak(authentication);
     }
 
     @GetMapping("/streaks/rank")
-    public List<GetRank> ranking (){
+    public List<GetRankResponse> ranking (){
         return readRank.Ranking();
     }
 }

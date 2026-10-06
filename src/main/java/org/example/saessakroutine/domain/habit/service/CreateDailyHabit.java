@@ -26,11 +26,16 @@ public class CreateDailyHabit {
         if(request.getName().isBlank()){
             throw new BadRequestException();
         }
-        for(int i=0; i< request.getCategory().size(); i++){
-            if(request.getCategory().get(i).isBlank()){
-                throw new BadRequestException();
+        if(!request.getCategorys().isEmpty()){
+            for(int i=0; i< request.getCategorys().size(); i++){
+                if(request.getCategorys().get(i).isBlank()){
+                    throw new BadRequestException();
+                }
             }
+        } else {
+            throw new BadRequestException();
         }
+
         //========================================예외처리
         if (request.getTotalRepeat() == 0){
             throw new BadRequestException();
@@ -43,7 +48,7 @@ public class CreateDailyHabit {
         Habit habit = Habit.builder()
                 .name(request.getName())
                 .periodType(request.getPeriodType())
-                .category(request.getCategory())
+                .category(request.getCategorys())
                 .user(user)
                 .completed(false)
                 .build();

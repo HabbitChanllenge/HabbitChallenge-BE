@@ -10,6 +10,6 @@ import java.util.List;
 public class WeeklyHabitCreatRequest {
     private String habitName;
     private String periodType;
-    private List<String> category = new ArrayList<>();
+    private List<String> categorys = new ArrayList<>();
     private List<Integer> weekOfDay = new ArrayList<>();
 }
