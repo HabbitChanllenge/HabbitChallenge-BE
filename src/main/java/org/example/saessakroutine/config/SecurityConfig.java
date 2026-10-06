@@ -65,9 +65,11 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(List.of("https://habbit-challenge-fe.vercel.app"));
 
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
 
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept"));
+
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
