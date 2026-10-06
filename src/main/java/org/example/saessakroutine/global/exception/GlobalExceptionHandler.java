@@ -1,15 +1,10 @@
 package org.example.saessakroutine.global.exception;
 
-import org.example.saessakroutine.user.exception.PasswordMismatchException;
-import org.example.saessakroutine.user.exception.UserNotFoundException;
-import org.example.saessakroutine.user.exception.password.VerificationCodeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
