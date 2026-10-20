@@ -3,6 +3,8 @@ package org.example.saessakroutine.user.repository;
 import org.example.saessakroutine.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -11,5 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email); // 회원가입 이메일 중복 검사
 
-    Optional<User> findTop20ByOrderByAllStreakDesc();
+//    Optional<User> findTop20ByOrderByAllStreakDesc();
+    List<User> findTop20ByOrderByAllStreakDesc();
 }
