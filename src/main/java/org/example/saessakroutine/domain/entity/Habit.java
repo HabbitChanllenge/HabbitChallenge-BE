@@ -94,7 +94,8 @@ public class Habit {
     }
     //======================================================================= 일주일 습관 인증버튼 활성화
     @Transactional
-    public void CompletedUpdate(Boolean completed){this.completed = completed;}
+    public void CompletedUpdate(Boolean completed){this.completed = completed;
+    this.completedCount = 0;}
     @Transactional
     public void WeeklyHabitStreak(Boolean streak){
         if(streak){

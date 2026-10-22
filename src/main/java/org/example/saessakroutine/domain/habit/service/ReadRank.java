@@ -13,7 +13,6 @@ import java.util.List;
 public class ReadRank {
     private final UserRepository userRepository;
     public List<GetRankResponse> Ranking() {
-//        List<GetRankResponse> getRankResponse = userRepository.findTop20ByOrderByAllStreakDesc().stream().map(GetRankResponse::new).toList();
         List<GetRankResponse> getRankResponses = userRepository.findTop20ByOrderByAllStreakDesc().stream().map(GetRankResponse::new).toList();
         if (getRankResponses.isEmpty()){ //비어있는지 검사?
             throw new NoContentsException();
