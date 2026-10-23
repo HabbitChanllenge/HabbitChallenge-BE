@@ -48,11 +48,11 @@ public class CompleteHabit {
             }
         }
         habitRepository.save(habit); //이걸 안하면 DB에 반영이 안됨
-        userRepository.save(habit.getUser());
         if (habit.getUser().getCompletedHabits() == habit.getUser().getAllHabits()){
             habit.getUser().updateAllStreak(true);
             userRepository.save(habit.getUser());
         }
+        userRepository.save(habit.getUser());
         return 200;
     }
 }
