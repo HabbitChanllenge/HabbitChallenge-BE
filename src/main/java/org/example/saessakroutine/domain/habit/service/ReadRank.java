@@ -13,14 +13,14 @@ import java.util.List;
 public class ReadRank {
     private final UserRepository userRepository;
     public List<GetRankResponse> Ranking() {
-        List<GetRankResponse> getRankResponse = userRepository.findTop20ByOrderByAllStreakDesc().stream().map(GetRankResponse::new).toList();
-        if (getRankResponse.isEmpty()){ //비어있는지 검사?
+        List<GetRankResponse> getRankResponses = userRepository.findTop20ByOrderByAllStreakDesc().stream().map(GetRankResponse::new).toList();
+        if (getRankResponses.isEmpty()){ //비어있는지 검사?
             throw new NoContentsException();
         } else {
-            for (int i = 0; i < getRankResponse.size(); i++){
-                getRankResponse.get(i).AddRank(i+1);
+            for (int i = 0; i < getRankResponses.size(); i++){
+                getRankResponses.get(i).AddRank(i+1);
             }
         }
-        return getRankResponse;
+        return getRankResponses;
     }
 }
