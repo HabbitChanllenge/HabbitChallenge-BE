@@ -39,6 +39,14 @@ public class CreateWeeklyHabit {
         //=================================위에는 예외처리
         //=================================밑에는 습관 생성코드
         User user = userRepository.findByEmail(authentication.getName()).orElseThrow(NoContentsException::new);
+        for(int i=0; i < request.getDayOfWeek().size(); i++){
+            if(request.getDayOfWeek().get(i).equals(dayOfWeek)){
+                System.out.println(request.getDayOfWeek() + "    dayOfWeek: " + dayOfWeek);
+                if(user.getAllHabits() == user.getCompletedHabits() && user.getAllStreak() > 0){
+                    user.updateAllStreakDelete();
+                }
+            }
+        }
 
         Habit habit = Habit.builder()
                 .name(request.getName())

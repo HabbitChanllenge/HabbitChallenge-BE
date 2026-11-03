@@ -44,6 +44,9 @@ public class CreateDailyHabit {
         //======================================== 예외처리
 
         User user = userRepository.findByEmail(authentication.getName()).orElseThrow(NoContentsException::new);
+        if(user.getAllHabits() == user.getCompletedHabits() && user.getAllStreak()>0){
+            user.updateAllStreakDelete();
+        }
 
         Habit habit = Habit.builder()
                 .name(request.getName())

@@ -64,6 +64,10 @@ public class User {
         }
     }
 
+    public void updateAllStreakDelete(){
+        this.allStreak--;
+    }
+
     public void updateAllHabits(boolean exist){
         if(exist){
             this.allHabits++; //습관을 생성했을 때
@@ -75,11 +79,17 @@ public class User {
     public void updateCompletedHabits(boolean completed){
         if(completed){
             this.completedHabits++; //습관 인증을 완료했을 때
+            System.out.println("인증한 습관" + completedHabits);
+            System.out.println("전체 습관" + allHabits);
         } else {
             this.completedHabits = 0; //새로운 날이 되었을 때 초기화
         }
     }
 
-    @OneToMany(mappedBy = "user")
+    public void updateCompletedHabitsDelete(){
+        this.completedHabits--;
+    }
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE) //유저가 삭제되었을 때 습관들도 삭제
     private List<Habit> habit = new ArrayList<>();
 }

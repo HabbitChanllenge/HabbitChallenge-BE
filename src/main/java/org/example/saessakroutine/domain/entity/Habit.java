@@ -18,7 +18,6 @@ public class Habit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long habit_id;
-    //유저 기본키는 나중에 받아오기
     private String name;
     private boolean completed;
     private int streak;
